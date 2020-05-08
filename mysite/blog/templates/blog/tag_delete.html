@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<p> </p>
+<form action="{% url 'tag_delete_url' pk=tag.pk %}" method="post">
+{% csrf_token %}
+
+<h4> Удалить тег {{ tag.title|title }}</h4>
+<a href="{% url 'tag_detail_url' pk=tag.pk %}">Отменить</a>
+<button type="submit" name="button" class="btn btn-danger">Удалить</button>
+</form>
+
+{% endblock %}

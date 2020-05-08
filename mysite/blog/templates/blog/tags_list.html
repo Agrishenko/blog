@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+    <p> </p>
+
+    Теги:
+
+ {% for tag in tags %}
+     <p> </p>
+     <a  href="{{ tag.get_absolute_url }}">{{ tag.title }} </a> <a href="{{tag.get_edit_url}}"> - изменить\</a><a href="{% url 'tag_delete_url' pk=tag.pk %}"> удалить</a>
+
+    {% endfor %}
+
+{% endblock %}

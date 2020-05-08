@@ -1,0 +1,22 @@
+      <p> </p>
+    <div class="card">
+        <div class="card-header">
+            {{ post.published_date }}
+        </div>
+          <div class="card-body">
+                 <h5 class="card-title">{{ post.title }}</h5>
+                 <p class="card-text">{{ post.text }}.</p>
+                  <div class="image__post">
+              <img src="{{post.image.url}}">
+    </div>
+                <a id="reder" href="{% url 'post_detail' pk=post.pk %}">Читать</a>
+                 <p> </p>
+
+            </div>
+        <div class="card-footer text-muted">
+            Теги:
+            {% for tag in post.tags.all %}
+                <a href="{{ tag.get_absolute_url }}"> {{ tag.title }}; </a>
+            {% endfor %}
+        </div>
+    </div>

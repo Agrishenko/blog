@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{{ tag.title }} {{ block.super }}
+{% block content %}
+<h1 class="=mb-5"> Пост тега "{{ tag.title|title }}":</h1>
+
+    {% for post in tag.posts.all %}
+
+{% include 'blog/includes/post_card_template.html' %}
+
+    {% endfor %}
+{% endblock %}

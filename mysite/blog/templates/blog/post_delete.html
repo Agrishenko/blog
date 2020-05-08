@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<p> </p>
+<form action="{% url 'post_delete' pk=post.pk %}" method="post">
+{% csrf_token %}
+
+<h4> Удалить пост {{ post.title|title }}</h4>
+<a href="{% url 'post_detail' pk=post.pk %}">Отменить</a>
+<button type="submit" name="button" class="btn btn-danger">Удалить</button>
+</form>
+
+{% endblock %}

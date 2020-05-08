@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+     <h2 style="color: #3e81dc">Посты: </h2>
+
+    {% for post in posts.object_list %}
+{% include 'blog/includes/post_card_template.html' %}
+    {% endfor %}
+{% endblock %}

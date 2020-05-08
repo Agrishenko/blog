@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h4 style="color: #3e81dc"> Пост: {{ post.title }}</h4>
+<div class="card-columns">
+  <div class="card" style="width: 700px">
+      <img src="{{post.image.url}}" class="card-img">
+    <p class="card-body">
+       <p class="card-text">{{post.text}}</p>
+        <p class="card-text"><small class="text-muted">{{ post.published_date }}</small></p>
+
+        <div>
+            Тег:
+            {% for tag in post.tags.all %}
+                {{ tag.title }};
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

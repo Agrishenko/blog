@@ -1,0 +1,110 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'blog.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
+    <body>
+  <header class="header" id="header">
+      <div class="container">
+        <div class="nav">
+            <a href="/" class="logo">
+                <img src="/media/img/Logo_Kodland.png">
+            </a>
+            <ul class="menu">
+                <li class="menu__item">
+                <a href="/" class="blog">Блог</a>
+                </li>
+              <div class="content__admin">
+       {% block admin-panel%}
+
+   <div class="btn-group">
+    <button class="btn btn-light dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Создать
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" id="Link" href="{% url 'post_create_url' %}">Пост</a>
+    <a class="dropdown-item"  id="Link" href="{% url 'tag_create_url' %}">Тег</a>
+  </div>
+</div>
+{% endblock %}
+</div>
+            <div class="soursed">
+                <form class="form-inline my-2 my-lg-0" action="{% url 'post_list' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" name="поиск">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+    </form>
+            </div>
+                <li class="menu__item">
+            <a href="/">
+                <img src="/media/img/email.png" class="email">
+            </a>
+                </li>
+
+                <li class="menu__item">
+            <a href="/admin/">
+                <img src="/media/img/Uchenik.png" class="uchenik">
+            </a>
+                </li>
+            {% if request.user.is_authenticated and request.user.is_staff %}
+                                <li class="menu__item">
+            <a href="/admin/logout/" class="logout">
+                <img src="/media/img/exit.png">
+            </a>
+                </li>
+             {% else %}
+                <li class="menu__item">
+            <a href="/admin/login/?next=/admin/" class="logout">
+                <img src="/media/img/logout.png">
+            </a>
+                </li>
+             {% endif %}
+
+            </ul>
+
+        </div>
+      </div>
+  </header>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+
+            {% block content %}
+            {% endblock %}
+    {% if request.user.is_authenticated and request.user.is_staff %}
+    <div class="edit">
+    <a href="{{ admin_obj.get_edit_url }}" class="btn btn-light edit" style="{% if detail %}display:block;{% endif %}">Редактировать</a>
+    <a href="{{ admin_obj.get_delete_url }}" class="btn btn-danger delete" style="{% if detail %}display:block;{% endif %}">Удалить</a>
+    {% endif %}
+
+            <p> </p>
+           <nav aria-label="...">
+  <ul class="pagination">
+      {% for n in posts.paginator.page_range %}
+          {% if posts.number == n %}
+            <li class="page-item active">
+              <a class="page-link" href="?page={{ n }}">{{ n }} <span class="sr-only">(current)</span></a>
+
+                {% elif  n > posts.number|add:-3 and n < posts.number|add:3 %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ n }}">{{ n }} <span class="sr-only">(current)</span></a>
+                 </li>
+          {% endif %}
+      {% endfor %}
+
+  </ul>
+</nav>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+
+</html>
