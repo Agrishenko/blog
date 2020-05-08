@@ -1,0 +1,12 @@
+Для запуска установить posgresql
+Название базы test
+user test
+password z38x6k4y
+Сделать миграцию для создание структуры 
+\mysite\manage.py migrate
+
+Если не работает статика
+\mysite\manage.py collectstatic
+
+Для запуска
+\mysite\manage.py runserver localhost:8000
